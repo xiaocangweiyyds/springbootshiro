@@ -1,5 +1,6 @@
 package com.yr.service;
 
+import com.yr.entity.UPermission;
 import com.yr.entity.UUser;
 
 import java.util.List;
@@ -10,6 +11,6 @@ public interface LoginService {
 
     List<String> queryRolesByName(String username);
 
-    List<String> queryPermissionsByName(String username);
+    List<UPermission> queryPermissionsByMark(String username);
 
 }

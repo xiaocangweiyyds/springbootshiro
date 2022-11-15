@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>登录</title>
 </head>
-<script type="text/javascript" src="../static/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="../../static/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 
     function login() {

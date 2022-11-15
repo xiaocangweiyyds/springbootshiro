@@ -5,7 +5,13 @@
     <title>$Title$</title>
 </head>
 <body>
+<@shiro.user>
 <a href="logout">注销</a>&nbsp;&nbsp;
-<a href="/user/list">列表</a>
+</@shiro.user>
+
+<@shiro.hasPermission name="user_query">
+    <a href="/user/list">列表</a>
+</@shiro.hasPermission>
+
 </body>
 </html>

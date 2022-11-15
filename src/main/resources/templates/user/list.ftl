@@ -18,8 +18,8 @@
             pns = 1;
         }
         $.ajax({
-            type: "post", //post请求、
-            url: "/user/list", //项目路径
+            type: "get", //post请求、
+            url: "/user/user", //项目路径
             dataType: "json", //返回回来的数据格式
             async: true, //异步
             data: {pn: pns}, //返回后台的参数
@@ -35,12 +35,12 @@
                         "<td>" + ojb.createTime + "</td>" +
                         "<td>" + ojb.lastLoginTime + "</td>" +
                         "<td>" +
-                        <@shiro.hasRole name="888888">
+<#--                        <@shiro.hasRole name="888888">-->
                         "<a href='javascript:del(" + ojb.id + ")'>删除 </a>" +
-                        </@shiro.hasRole>
-                        <@shiro.hasRole name="888888">
+<#--                        </@shiro.hasRole>-->
+<#--                        <@shiro.hasRole name="888888">-->
                         "<a href='/user/user/" + ojb.id + "'>修改</a>" +
-                        </@shiro.hasRole>
+<#--                        </@shiro.hasRole>-->
                         "</td>" +
                         "</tr>";
                 });
@@ -61,7 +61,6 @@
 
 </script>
 <body>
-<#include "../cb.ftl"/>
 
 <#-- delete 请求 -->
 <form action="" method="post" id="del">
@@ -88,7 +87,7 @@
 
 <br/>
 <br/>
-<a href="/user/user">添加</a>
+<a href="/user/new">添加</a>
 
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.yr.service.impl;
 
+import com.yr.entity.UPermission;
 import com.yr.entity.UUser;
 import com.yr.mapper.UUserMapper;
 import com.yr.service.LoginService;
@@ -25,7 +26,8 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List<String> queryPermissionsByName(String username) {
-        return uUserMapper.queryPermissionsByName(username);
+    public List<UPermission> queryPermissionsByMark(String username) {
+        return uUserMapper.queryPermissionsByMark(username);
     }
+
 }

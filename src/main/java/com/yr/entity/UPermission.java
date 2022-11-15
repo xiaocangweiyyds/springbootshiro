@@ -23,5 +23,7 @@ public class UPermission implements Serializable {
 	private Long id;
 	private String url;
 	private String name;
+	private String mark;
+	private String type;
 
 }

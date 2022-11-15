@@ -1,16 +1,25 @@
 package com.yr.config.shiro.filter;
 
+import com.yr.config.shiro.realm.MyRealm;
+import com.yr.entity.UPermission;
+import com.yr.service.LoginService;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.util.WebUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component("permission")
 public class PermissionFilter extends AccessControlFilter {
+
+    @Autowired
+    private LoginService loginService;
 
     @Override
     protected boolean isAccessAllowed(ServletRequest servletRequest, ServletResponse servletResponse, Object o) throws Exception {
@@ -22,14 +31,19 @@ public class PermissionFilter extends AccessControlFilter {
         if (null != uri && uri.startsWith(basePath)) {
             uri = uri.replaceFirst(basePath, "");
         }
-        if (subject.isPermitted(uri)) {
-            //subject 包含登录用户所有权限，uri是用户在界面请求的url，有权限才进来
-            return true;
+
+        List<UPermission> list = MyRealm.map.get(subject.getPrincipal());
+        if (null != list) {
+            for (UPermission uPermission : list) {
+                if (uri.matches(uPermission.getUrl()) && uPermission.getType().equalsIgnoreCase(httpServletRequest.getMethod())) {
+                    return true;
+                }
+            }
         }
 
-        if ("XMLHttpRequest".equalsIgnoreCase(((HttpServletRequest) servletRequest).getHeader("X-Requested-With"))){
-            //进来这里就代表这是ajax请求
-        }
+//        if ("XMLHttpRequest".equalsIgnoreCase(((HttpServletRequest) servletRequest).getHeader("X-Requested-With"))) {
+//            //进来这里就代表这是ajax请求
+//        }
 
         return false;
     }

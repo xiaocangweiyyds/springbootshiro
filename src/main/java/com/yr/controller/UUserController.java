@@ -36,13 +36,6 @@ public class UUserController {
         return "redirect:/user/list";
     }
 
-    //from标签需要
-    @RequestMapping(value = "user", method = RequestMethod.GET)
-    public String input(Map<String, Object> map) {
-        map.put("user", new UUser());
-        return "user/compile";
-    }
-
     //删除
     @RequestMapping(value = "user/{id}", method = RequestMethod.DELETE)
     public String delete(@PathVariable("id") Integer id) {
@@ -80,7 +73,7 @@ public class UUserController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "list", method = RequestMethod.POST)
+    @RequestMapping(value = "user",method = RequestMethod.GET)
     public Page<UUser> listPage(String pn) {
         int currentPage = 1;
         int dataNumber = 5;
@@ -96,6 +89,13 @@ public class UUserController {
         page.setList(iuUserService.selectPage(currentPage, dataNumber));
         System.out.println(page);
         return page;
+    }
+
+    //from标签需要
+    @RequestMapping(value = "new", method = RequestMethod.GET)
+    public String input(Map<String, Object> map) {
+        map.put("user", new UUser());
+        return "user/compile";
     }
 
 }

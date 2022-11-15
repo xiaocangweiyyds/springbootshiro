@@ -19,8 +19,8 @@
         SELECT DISTINCT u3.type FROM u_user u1,u_user_role u2,u_role u3 where email=#{name} and u1.id=u2.uid and u2.rid=u3.id
     </select>
 
-    <select id="queryPermissionsByName" resultType="java.lang.String" parameterType="java.lang.String">
-        SELECT DISTINCT u4.url FROM u_user u1,u_user_role u2,u_role_permission u3,u_permission u4 where email=#{name} and u1.id=u2.uid and u2.rid=u3.rid and u3.pid=u4.id
+    <select id="queryPermissionsByMark" resultType="com.yr.entity.UPermission" parameterType="java.lang.String">
+        SELECT u4.mark,u4.url,u4.type FROM u_user u1,u_user_role u2,u_role_permission u3,u_permission u4 where email=#{name} and u1.id=u2.uid and u2.rid=u3.rid and u3.pid=u4.id
     </select>
 
 </mapper>

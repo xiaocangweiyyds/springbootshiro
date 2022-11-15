@@ -1,5 +1,6 @@
 package com.yr.config.shiro.realm;
 
+import com.yr.entity.UPermission;
 import com.yr.entity.UUser;
 import com.yr.service.IUPermissionService;
 import com.yr.service.IUUserService;
@@ -15,7 +16,13 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class MyRealm extends AuthorizingRealm {
+
+    public static Map<String, List<UPermission>> map = new HashMap<>();
 
     @Autowired
     private LoginService loginService;
@@ -27,7 +34,11 @@ public class MyRealm extends AuthorizingRealm {
 
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         simpleAuthorizationInfo.addRoles(loginService.queryRolesByName(username));
-        simpleAuthorizationInfo.addStringPermissions(loginService.queryPermissionsByName(username));
+
+        map.put(username, loginService.queryPermissionsByMark(username));
+        for (UPermission uPermission : map.get(username)) {
+            simpleAuthorizationInfo.addStringPermission(uPermission.getMark());
+        }
 
         return simpleAuthorizationInfo;
     }

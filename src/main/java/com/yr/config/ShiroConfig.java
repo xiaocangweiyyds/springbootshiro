@@ -1,5 +1,6 @@
 package com.yr.config;
 
+import com.yr.config.shiro.filter.LoginFilter;
 import com.yr.config.shiro.filter.PermissionFilter;
 import com.yr.config.shiro.realm.MyRealm;
 import com.yr.service.IUUserService;
@@ -24,6 +25,8 @@ public class ShiroConfig {
 
     @Autowired
     private PermissionFilter permissionFilter;
+    @Autowired
+    private LoginFilter loginFilter;
 
     //加密
     @Bean
@@ -61,16 +64,21 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSuccessUrl("/index");
         shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized");
 
+        Map<String, Filter> filterMap = new HashMap<>();
+        filterMap.put("permission", permissionFilter);
+        filterMap.put("login", loginFilter);
+
+        shiroFilterFactoryBean.setFilters(filterMap);
+
         Map<String, String> map = new HashMap<>();
+        map.put("/static/**", "anon");
         map.put("/login", "anon");
+        map.put("/index", "anon");
         map.put("/logout", "logout");
+        map.put("/user/**", "permission");
         map.put("/**", "authc");
 
-        Map<String, Filter> filterMap = new HashMap<>();
-        filterMap.put("permission",permissionFilter);
-
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
-        shiroFilterFactoryBean.setFilters(filterMap);
 
         return shiroFilterFactoryBean;
     }

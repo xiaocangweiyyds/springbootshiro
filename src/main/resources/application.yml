@@ -34,8 +34,3 @@ mybatis-plus:
 logging:
   level:
     com.yr.dao: DEBUG
-
-#shiro:
-#  loginUrl: /login
-#  successUrl: /index
-#  unauthorizedUrl: /unauthorizedm

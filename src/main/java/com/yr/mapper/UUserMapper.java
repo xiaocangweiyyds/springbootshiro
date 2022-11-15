@@ -1,6 +1,7 @@
 package com.yr.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.yr.entity.UPermission;
 import com.yr.entity.UUser;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -21,6 +22,6 @@ public interface UUserMapper extends BaseMapper<UUser> {
 
     List<String> queryRolesByName(String username);
 
-    List<String> queryPermissionsByName(String username);
+    List<UPermission> queryPermissionsByMark(String username);
 
 }
